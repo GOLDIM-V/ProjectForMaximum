@@ -6,7 +6,7 @@ from django.utils.html import format_html
 # Register your models here.
 
 class AdvertAdmin(admin.ModelAdmin):
-    list_display = ["id", "title", "description", "price", "auction", "date_of_creation", "date_of_update", 'get_image']
+    list_display = ["id", "title", "description", "price", "auction", "date_of_creation", "date_of_update", 'get_image', "image"]
     list_filter = ["auction", "created_at"]
     actions = ["make_auctions_as_true", "make_auctions_as_false"]
     fieldsets = (
