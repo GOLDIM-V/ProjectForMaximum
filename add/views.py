@@ -22,5 +22,5 @@ def advert_post(request):
             return redirect(url)
     else:
         form = AdvertForm()
-        context = {'form': form}
-        return render(request, 'advertisement-post.html', context)
+    context = {'form': form}
+    return render(request, 'advertisement-post.html', context)
