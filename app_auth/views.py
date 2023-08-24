@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from .forms import Register_form
 
 # Create your views here.
 
@@ -9,7 +11,7 @@ from django.contrib.auth import authenticate, login, logout
 def profile_views(request):
     user = authenticate(request, username=request.user.username, password=request.user.password)
     context = {'name': request.user.username,
-               'user_is_authenticate': user is not None,
+               'user_is_authenticate': user is None,
                }
     return render(request, 'app_auth/profile.html', context)
 
@@ -19,7 +21,7 @@ def login_view(request):
         if request.user.is_authenticated:
             return redirect(redirect_url)
         else:
-            return render(request, 'app_auth/login.html', {'user_is_authenticate': True})
+            return render(request, 'app_auth/login.html', {'user_is_authenticate': False})
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
@@ -27,8 +29,22 @@ def login_view(request):
         login(request, user)
         return redirect(redirect_url)
     return render(request, 'app_auth/login.html', {'error': 'Пользователь не найден',
-                                                   'user_is_authenticate': True})
+                                                   'user_is_authenticate': False})
 
 def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
+
+def register_view(request):
+    if request.method == "POST":
+        form = Register_form(request.POST)
+        if form.is_valid():
+            form.save()
+            url = reverse('profile')
+            return redirect(url)
+    else:
+        form = Register_form()
+    context = {'form': form,
+               'user_is_authenticate': False
+               }
+    return render(request, 'app_auth/register.html', context)

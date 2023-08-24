@@ -28,9 +28,9 @@
       <span style="font-weight: bold;">Разместить объявление</span>
     </a>
   </li>
-  {% if user_is_authenticate %}
+  {% if not user_is_authenticate %}
   <li class="nav-item">
-    <a {% block nav-bar-register %} class="nav-link" {% endblock %} href="register.html">
+    <a {% block nav-bar-register %} class="nav-link" {% endblock %} href="{% url 'register' %}">
       <span style="font-weight: bold;">Регистрация</span>
     </a>
   </li>
