@@ -13,44 +13,46 @@
 </head>
 
 <body>
-{% block content %}
 <ul class="nav nav-pills sticky-top bg-white nav-fill">
   <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="index.html">
+    <a {% block nav-bar-main %} class="nav-link" {% endblock %} href="{% url 'main-page' %}">
       <span style="font-weight: bold;">Главная</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="top-sellers.html"><span style="font-weight: bold;">Топ продавцов</span>
+    <a {% block nav-bar-top-sellers %} class="nav-link" {% endblock %} href="{% url 'top-sellers' %}"><span style="font-weight: bold;">Топ продавцов</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="advertisement-post.html">
+    <a {% block nav-bar-adv-post %} class="nav-link" {% endblock %} href="{% url 'adv-post' %}">
       <span style="font-weight: bold;">Разместить объявление</span>
     </a>
   </li>
+  {% if user_is_authenticate %}
   <li class="nav-item">
-    <a class="nav-link" href="register.html">
+    <a {% block nav-bar-register %} class="nav-link" {% endblock %} href="register.html">
       <span style="font-weight: bold;">Регистрация</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="login.html">
+    <a {% block nav-bar-login %} class="nav-link" {% endblock %} href="{% url 'login' %}">
       <span style="font-weight: bold;">Войти</span>
     </a>
   </li>
+  {% else %}
   <li class="nav-item">
-    <a class="nav-link" href="profile.html">
+    <a {% block nav-bar-profile %} class="nav-link" {% endblock %} aria-current="page" href="{% url 'profile' %}">
       <span style="font-weight: bold;">Профиль</span>
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a {% block nav-bar-logout %} class="nav-link" {% endblock %} href="{% url 'logout' %}">
       <span style="font-weight: bold;">Выйти</span>
     </a>
   </li>
+  {% endif %}
 </ul>
-
+{% block content %}
 <div id="carouselExampleControls" class="carousel slide bg-primary" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">

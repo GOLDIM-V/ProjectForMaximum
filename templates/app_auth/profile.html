@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Профиль
+{% endblock %}
+
+{% block nav-bar-profile %}
+class="nav-link active" 
+{% endblock %}
+
+{% block content %}
+<div class="col" style="margin: 50px;">
+  <div class="display-2">
+    <span class="badge bg-primary">Сейчас вы находитесь на сайте под ником {{ name }}.</span>
+  </div>
+</div>
+{% endblock %}

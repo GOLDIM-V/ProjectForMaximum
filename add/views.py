@@ -1,16 +1,20 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .models import Advert
 from .forms import AdvertForm
 
 def index(request):
     adverts = Advert.objects.all()
     context = {"adverts": adverts}
-    return render(request, 'index.html', context)
+    return render(request, 'add/index.html', context)
+
 
 def top_sellers(request):
-    return render(request, 'top-sellers.html')
+    return render(request, 'add/top-sellers.html')
 
+
+@login_required(login_url=reverse_lazy('login'))
 def advert_post(request):
     if request.method == "POST":
         form = AdvertForm(request.POST, request.FILES)
@@ -23,4 +27,4 @@ def advert_post(request):
     else:
         form = AdvertForm()
     context = {'form': form}
-    return render(request, 'advertisement-post.html', context)
+    return render(request, 'add/advertisement-post.html', context)
